@@ -7,7 +7,7 @@ import { TweenMax, Power4 } from 'gsap'
 import settings from '../shared/settings.js'
 import utils from '../shared/utils.js'
 import state from '../shared/state.js'
-import ParticleSystem from './objects/particleSystem/'
+import Forest from './objects/forest/'
 import Animals from './objects/animals/'
 import Sun from './objects/sun/'
 
@@ -41,15 +41,7 @@ export default class Canvas extends React.Component {
 
     this.scene.fog = new Fog( 0xefd1b5, 10.25, 70 )
 
-    this.light = new THREE.DirectionalLight( 0xffffbb, 1 )
-		this.light.position.set( - 1, 1, - 1 )
-		this.scene.add( this.light )
 
-    let hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 )
-    hemiLight.color.setHSL( 0.6, 1, 0.6 )
-    hemiLight.groundColor.setHSL( 0.095, 1, 0.75 )
-    hemiLight.position.set( 0, 500, 0 )
-    this.scene.add( hemiLight )
 
     // COMPOSER
     this.renderer.autoClear = false
@@ -112,33 +104,23 @@ export default class Canvas extends React.Component {
      * Tree particles (point)
      * @type {Object3D}
      */
-    this.particlesTree = new ParticleSystem({
-      scene: this.scene,
-      particle: particleTree,
-      xDensity: 200,
-      yDensity: 200,
-      yOffset: 0,
-      changeColor: true,
-      scale: 1,
-      noSolarize: 0
+    this.forest = new Forest({
+      texture: this.textureParticleTree,
     })
-    this.scene.add(this.particlesTree)
+    this.scene.add(this.forest)
+this.forest.position.y = -8
 
     /**
      * Animals
      * @type {animals}
      */
-    this.animals = []
-    for(let i = 0; i < 4; i++){
-      self.animals[i] = new Animals({
-        limitSpeed: 1 * window.Math.random() * 5,
-        x: -25 + window.Math.random() * 50,
-        y: 5 + window.Math.random() * 20,
-        z: 50 + window.Math.random()*10,
-        index: utils.getRandomIntInclusive(0,2)
-      })
-      self.scene.add(self.animals[i])
-    }
+     self.animals = new Animals({
+       limitSpeed: 1 * window.Math.random() * 5,
+       x: 0,
+       y: 14,
+       z: 50
+     })
+     self.scene.add(self.animals)
 
     /**
      * Sun
@@ -146,6 +128,8 @@ export default class Canvas extends React.Component {
      */
     this.sun = new Sun()
     this.scene.add(this.sun)
+
+
 
     this.isReady = true
   }
@@ -193,9 +177,8 @@ export default class Canvas extends React.Component {
     let delta = this.clock.getDelta()
     this.time += 1/60
 
-    for(let i = 0; i < 4; i++){
-      this.animals[i].update(delta)
-    }
+    this.animals.update(delta)
+    this.forest.rotation.z += .007
 
     if(!this.composer){
       this.renderer.render(this.scene, this.camera)

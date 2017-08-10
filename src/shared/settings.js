@@ -1,7 +1,7 @@
 export default {
   cameraTilt: {
-    cameraPanRange: 3.0,
-    cameraYawRange: 1.0 * 1.125,
+    cameraPanRange: 0.01,
+    cameraYawRange: 0.01,
   },
   camera: {
     position: {

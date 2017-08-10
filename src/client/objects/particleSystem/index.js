@@ -49,10 +49,7 @@ export default class ParticleSystem extends Object3D {
       let xv = x / xs - 0.5
       for (let y = 0; y < ys; y++) {
         let yv = y / ys - 0.5
-        // plane.position.x = xv * 400 + Math.random() * randomSpread * 2
-        // plane.position.y = (Math.sin(yv * Math.PI * 2) * Math.random() + Math.sin(xv *Math.PI*10 / 2) * 5.92) + Math.random() + yOffset
-        // plane.position.z = yv * this.depthLoop
-        //
+
         plane.position.x = xv * xs * Math.random() //xv * 60 + Math.random() * randomSpread * 2
         plane.position.y = yv * ys * Math.random()//-20
         plane.position.z = yv
@@ -119,8 +116,6 @@ export default class ParticleSystem extends Object3D {
     ])
     uniforms.texture = { type: 't', value: state.textures.particle }
 
-
-
     this.material = new ShaderMaterial({
       vertexShader: vert,
       fragmentShader: frag,
@@ -141,17 +136,5 @@ export default class ParticleSystem extends Object3D {
   getBufferParticle(){
     return this.bufferParticle
   }
-  update() {
-    // this.material.uniforms.time.value += 1
-
-    // const positions = this.particles.geometry.attributes.position.array
-    // for (let i = 0, j = 0; i < this.particlesCount; i += 1, j += 3) {
-    //   positions[j + 2] += 0.2
-    //   if (positions[j + 2] > this.zone.z) {
-    //     positions[j + 2] = 0
-    //   }
-    // }
-    //
-    // this.particles.geometry.attributes.position.needsUpdate = true
-  }
+  update(){}
 }
