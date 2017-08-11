@@ -15,7 +15,8 @@ export default class Animals extends Object3D {
     self.props = props
     loader.load(flamingo, function( geometry ) {
       self.mesh = new THREE.Mesh( geometry, new MeshLambertMaterial( {
-            morphTargets: true
+            morphTargets: true,
+            fog: true,
           })
       );
       self.mesh.castShadow = true

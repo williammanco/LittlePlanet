@@ -27,7 +27,7 @@ export default class Canvas extends React.Component {
     this.props = props
     const width = window.innerWidth
     const height = window.innerHeight
-    this.renderer = new WebGLRenderer({ antialising: true, alpha: true })
+    this.renderer = new WebGLRenderer({ antialising: false, alpha: true })
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(width, height)
     this.camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 0.5, 30000 )
@@ -39,7 +39,7 @@ export default class Canvas extends React.Component {
     this.scene = new Scene()
     this.time = 0
 
-    this.scene.fog = new Fog( 0xefd1b5, 10.25, 70 )
+    this.scene.fog = new Fog( 0xefd1b5, -1.25, 70 )
 
 
 

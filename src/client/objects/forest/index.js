@@ -17,7 +17,7 @@ export default class Forest extends Object3D {
     this.materialTree = new MeshBasicMaterial({
       map: this.props.texture,
       color: 0x000000,
-      fog: false,
+      fog: true,
       transparent: true,
     } )
 
@@ -38,13 +38,13 @@ export default class Forest extends Object3D {
       this.treeMesh.push(new Mesh(this.geometryTree, this.materialTree ))
       this.add(this.treeMesh[i])
       this.treeMesh[i].rotation.z = (Math.random()) * i
-      this.treeMesh[i].position.z = 47 + Math.random() * 5
+      this.treeMesh[i].position.z = 35 + Math.random() * 30
       this.treeMesh[i].position.y = 0
 
       // this.treeMesh[i].position.y = i * 3.1
     }
 
-    this.circleMesh.position.z = 47
+    this.circleMesh.position.z = 40
     this.circleMesh.position.y = 0
     this.add(this.circleMesh)
 
