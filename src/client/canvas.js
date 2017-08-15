@@ -108,7 +108,7 @@ export default class Canvas extends React.Component {
       texture: this.textureParticleTree,
     })
     this.scene.add(this.forest)
-this.forest.position.y = -8
+    this.forest.position.y = -10
 
     /**
      * Animals
@@ -163,12 +163,12 @@ this.forest.position.y = -8
     }
     TweenMax.to(this.camera.rotation, 2, {
       x: rx*0.5,
-      y: ry*0.5,
+      y: ry*0.05,
       ease: Power4.easeOut
     })
     TweenMax.to(this.camera.position, 4, {
       x: settings.camera.position.x + nx*10,
-      y: settings.camera.position.y + ny*7,
+      y: settings.camera.position.y + ny * 2,
       ease: Power4.easeOut
     })
   }
