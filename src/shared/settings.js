@@ -6,9 +6,14 @@ export default {
   camera: {
     position: {
       x: 0,
-      y: 10,
-      z: 60,
+      y: 3,
+      z: 80,
     },
+    rotation:{
+      x: 0,
+      y: 0,
+      z: 0,
+    }
   },
   mouse: {
     x: 0,

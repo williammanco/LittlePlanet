@@ -13,10 +13,14 @@ export default class Animals extends Object3D {
     const self = this
     let loader = new JSONLoader()
     self.props = props
+    self.up = 0
     loader.load(flamingo, function( geometry ) {
+
+
       self.mesh = new THREE.Mesh( geometry, new MeshLambertMaterial( {
             morphTargets: true,
             fog: true,
+            color: 0xd47962
           })
       );
       self.mesh.castShadow = true
@@ -25,8 +29,8 @@ export default class Animals extends Object3D {
       self.mesh.rotation.y = Math.PI / 2
       self.mesh.scale.x = self.mesh.scale.y = self.mesh.scale.z = .03
       self.animation = new THREE.AnimationMixer( self.mesh )
-      self.clip = THREE.AnimationClip.CreateFromMorphTargetSequence( 'gallop', geometry.morphTargets, 30 )
-      self.animation.clipAction( self.clip ).setDuration( 1 ).play()
+      self.clip = THREE.AnimationClip.CreateFromMorphTargetSequence( 'fly', geometry.morphTargets, 30 )
+      self.animation.clipAction( self.clip ).setDuration( 1 + self.props.limitSpeed ).play()
       self.add( self.mesh )
 
     })
@@ -36,6 +40,7 @@ export default class Animals extends Object3D {
     if(self.mesh){
       if ( self.animation ) {
         self.animation.update( delta )
+        self.mesh.position.y = self.props.y + Math.sin(self.up)
       }
       // self.mesh.position.z -= delta * self.props.limitSpeed
       // if ( self.mesh.position.z  < -30 )  {

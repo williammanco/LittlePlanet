@@ -34,12 +34,15 @@ export default class Canvas extends React.Component {
     this.camera.position.x = settings.camera.position.x
     this.camera.position.y = settings.camera.position.y
     this.camera.position.z = settings.camera.position.z
+    this.camera.rotation.x = settings.camera.rotation.x
+    this.camera.rotation.y = settings.camera.rotation.y
+    this.camera.rotation.z = settings.camera.rotation.z
 
     this.clock = new Clock()
     this.scene = new Scene()
     this.time = 0
 
-    this.scene.fog = new Fog( 0xefd1b5, -1.25, 70 )
+    this.scene.fog = new Fog( 0xd47962, -1, 50 )
 
 
 
@@ -61,7 +64,7 @@ export default class Canvas extends React.Component {
     vblur.renderToScreen = true
     this.composer = new THREE.EffectComposer( this.renderer, renderTarget )
     this.composer.addPass( renderModel )
-    this.composer.addPass( effectBloom )
+    // this.composer.addPass( effectBloom )
     this.composer.addPass( hblur )
     this.composer.addPass( vblur )
 
@@ -108,19 +111,27 @@ export default class Canvas extends React.Component {
       texture: this.textureParticleTree,
     })
     this.scene.add(this.forest)
-    this.forest.position.y = -10
+    this.forest.position.y = -20
 
     /**
      * Animals
      * @type {animals}
      */
-     self.animals = new Animals({
-       limitSpeed: 1 * window.Math.random() * 5,
-       x: 0,
-       y: 14,
-       z: 50
-     })
-     self.scene.add(self.animals)
+
+     this.animals = []
+     for(let i = 0; i < 4; i++){
+       self.animals[i] = new Animals({
+         limitSpeed: .7 * window.Math.random() * 2,
+         x: 0,
+         y: 25 + window.Math.random() * 2,
+         z: 0 - window.Math.random() * 30
+       })
+       self.animals[i].position.y = -15
+       self.animals[i].position.z = 70
+       self.animals[i].rotation.z = window.Math.random() - window.Math.random()
+       self.animals[i].speed = window.Math.random() * 2
+       self.scene.add(self.animals[i])
+     }
 
     /**
      * Sun
@@ -161,14 +172,14 @@ export default class Canvas extends React.Component {
       rx = 0
       ry = 0
     }
-    TweenMax.to(this.camera.rotation, 2, {
-      x: rx*0.5,
-      y: ry*0.05,
-      ease: Power4.easeOut
-    })
+    // TweenMax.to(this.camera.rotation, 2, {
+    //   x: rx*0.5,
+    //   y: ry*0.5,
+    //   ease: Power4.easeOut
+    // })
     TweenMax.to(this.camera.position, 4, {
       x: settings.camera.position.x + nx*10,
-      y: settings.camera.position.y + ny * 2,
+      y: settings.camera.position.y + ny * 10,
       ease: Power4.easeOut
     })
   }
@@ -177,8 +188,13 @@ export default class Canvas extends React.Component {
     let delta = this.clock.getDelta()
     this.time += 1/60
 
-    this.animals.update(delta)
+    this.sun.update()
     this.forest.rotation.z += .007
+    for(let i = 0; i < 4; i++){
+      // this.animals[i].rotation.z -= .0001 * this.animals[i].speed
+      this.animals[i].update(delta)
+    }
+
 
     if(!this.composer){
       this.renderer.render(this.scene, this.camera)
