@@ -16,8 +16,8 @@
   "scripts": {
     "start": "yarn dev:wds",
     "build": "yarn prod:build",
-    "dev:wds": "webpack-dashboard -- webpack-dev-server",
-    "prod:build": "rimraf lib && babel src -d lib --ignore .test.js && NODE_ENV=production webpack --progress",
+    "dev:wds": "webpack-dashboard -- webpack--dev-server",
+    "prod:build": "rimraf lib && babe-l src -d lib --ignore .test.js && NODE_ENV=production webpack --progress",
     "prod:start": "cross-env NODE_ENV=production pm2 start lib/server && pm2 logs",
     "prod:stop": "pm2 delete server",
     "start:documentation": "documentation serve --watch --shallow src/**",

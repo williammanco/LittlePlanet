@@ -118,19 +118,36 @@ export default class Canvas extends React.Component {
      * @type {animals}
      */
 
-     this.animals = []
-     for(let i = 0; i < 4; i++){
-       self.animals[i] = new Animals({
+     this.flamingo = []
+     for(let i = 0; i < 3; i++){
+       self.flamingo[i] = new Animals({
+         type: 'flamingo',
          limitSpeed: .7 * window.Math.random() * 2,
          x: 0,
          y: 25 + window.Math.random() * 2,
          z: 0 - window.Math.random() * 30
        })
-       self.animals[i].position.y = -15
-       self.animals[i].position.z = 70
-       self.animals[i].rotation.z = window.Math.random() - window.Math.random()
-       self.animals[i].speed = window.Math.random() * 2
-       self.scene.add(self.animals[i])
+       self.flamingo[i].position.y = -15
+       self.flamingo[i].position.z = 70
+       self.flamingo[i].rotation.z = window.Math.random() - window.Math.random()
+       self.flamingo[i].speed = window.Math.random() * 2
+       self.scene.add(self.flamingo[i])
+     }
+
+     this.phanter = []
+     for(let i = 0; i < 3; i++){
+       self.phanter[i] = new Animals({
+         type: 'phanter',
+         limitSpeed: 1,
+         x: 0,
+         y: 10,
+         z: 0 - window.Math.random() * 30
+       })
+       self.phanter[i].position.y = -15
+       self.phanter[i].position.z = 70
+       self.phanter[i].rotation.z = window.Math.random() - window.Math.random()
+       self.phanter[i].speed = window.Math.random() * 2
+       self.scene.add(self.phanter[i])
      }
 
     /**
@@ -190,9 +207,13 @@ export default class Canvas extends React.Component {
 
     this.sun.update()
     this.forest.rotation.z += .007
-    for(let i = 0; i < 4; i++){
+    for(let i = 0; i < 3; i++){
       // this.animals[i].rotation.z -= .0001 * this.animals[i].speed
-      this.animals[i].update(delta)
+      this.flamingo[i].update(delta)
+    }
+    for(let i = 0; i < 3; i++){
+      // this.animals[i].rotation.z -= .0001 * this.animals[i].speed
+      this.phanter[i].update(delta*(i+1))
     }
 
 

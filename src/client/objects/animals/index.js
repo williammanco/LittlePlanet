@@ -6,6 +6,7 @@ import state from 'shared_path/state'
 
 THREE.MorphAnimMesh = require('imports-loader?THREE=three!exports-loader?THREE.MorphAnimMesh!three/examples/js/MorphAnimMesh')
 const flamingo = require('assets_path/js/flamingo.json')
+const panther = require('assets_path/js/panther.json')
 
 export default class Animals extends Object3D {
   constructor(props) {
@@ -14,7 +15,11 @@ export default class Animals extends Object3D {
     let loader = new JSONLoader()
     self.props = props
     self.up = 0
-    loader.load(flamingo, function( geometry ) {
+    let model = panther
+    if(this.props.type == 'flamingo'){
+      model = flamingo
+    }
+    loader.load(model, function( geometry ) {
 
 
       self.mesh = new THREE.Mesh( geometry, new MeshLambertMaterial( {

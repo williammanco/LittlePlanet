@@ -11,8 +11,8 @@ export default class Forest extends Object3D {
     const self = this
     this.props = props
 
-    this.geometryTree = new PlaneBufferGeometry(8, 8, 1 )
-    this.geometryTree.translate( 0, 16, 0 )
+    this.geometryTree = new PlaneBufferGeometry(10, 9, 1 )
+    this.geometryTree.translate( 0, 18, 0 )
     this.materialTree = new MeshBasicMaterial({
       map: this.props.texture,
       color: 0x000000,
@@ -32,7 +32,7 @@ export default class Forest extends Object3D {
     //   transparent: true,
     // })
     this.treeMesh = []
-    this.circleMesh = new Mesh(new CylinderBufferGeometry( 14, 10, 150, 30, 1 ), new MeshBasicMaterial({ color: 0x000000 }))
+    this.circleMesh = new Mesh(new CylinderBufferGeometry( 15, 15, 150, 100, 1 ), new MeshBasicMaterial({ color: 0x000000 }))
     for( let i = 0; i < 300; i += 1){
       this.treeMesh.push(new Mesh(this.geometryTree, this.materialTree ))
       this.add(this.treeMesh[i])
